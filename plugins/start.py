@@ -15,7 +15,15 @@ from config import ADMINS, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL
 from helper_func import subscribed, encode, decode, get_messages
 from database.database import add_user, del_user, full_userbase, present_user
 
+photos = [
+    'https://telegra.ph/file/554d58eb9e9e285cbdee5.jpg',
+    'https://telegra.ph/file/3ae90f60344562653b918.jpg',
+    'https://telegra.ph/file/071f9b04e4b732f878073.jpg',
+    # Add more photo URLs here
+]
 
+photo_index = random.randint(0, len(photos) - 1)
+photo_url = photos[photo_index]
 
 
 @Bot.on_message(filters.command('start') & filters.private & subscribed)
