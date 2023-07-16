@@ -19,7 +19,6 @@ photos = [
     'https://telegra.ph/file/554d58eb9e9e285cbdee5.jpg',
     'https://telegra.ph/file/3ae90f60344562653b918.jpg',
     'https://telegra.ph/file/071f9b04e4b732f878073.jpg',
-    # Add more photo URLs here
 ]
 
 photo_index = random.randint(0, len(photos) - 1)
@@ -147,18 +146,19 @@ async def not_joined(client: Client, message: Message):
     except IndexError:
         pass
 
-    await message.reply(
-        text = FORCE_MSG.format(
-                first = message.from_user.first_name,
-                last = message.from_user.last_name,
-                username = None if not message.from_user.username else '@' + message.from_user.username,
-                mention = message.from_user.mention,
-                id = message.from_user.id
-            ),
-        reply_markup = InlineKeyboardMarkup(buttons),
-        quote = True,
-        disable_web_page_preview = True
+    await message.reply_photo(
+        photo=photo_url,
+        caption=START_MSG.format(
+            first=message.from_user.first_name,
+            last=message.from_user.last_name,
+            username=None if not message.from_user.username else '@' + message.from_user.username,
+            mention=message.from_user.mention,
+            id=message.from_user.id
+        ),
+        reply_markup=reply_markup,
+        quote=True
     )
+    return
 
 @Bot.on_message(filters.command('users') & filters.private & filters.user(ADMINS))
 async def get_users(client: Bot, message: Message):
